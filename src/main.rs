@@ -3,7 +3,7 @@ use std::path::Path;
 use std::process::exit;
 use std::time::Instant;
 
-mod aoc_01;
+pub mod aoc_01;
 
 fn read_input(day: &u8) -> Vec<String> {
     let path = Path::new("data").join(format!("aoc_{:0>2}.txt", day.to_string()));

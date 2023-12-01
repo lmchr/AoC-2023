@@ -3,23 +3,25 @@ pub fn main(inputs: Vec<String>) {
     println!("Part 2: {}", part2(&inputs));
 }
 
-fn part1(inputs: &Vec<String>) -> i32 {
+fn part1(inputs: &Vec<String>) -> u32 {
     let mut sum = 0;
     for input in inputs {
         let first_digit = input
             .chars()
             .filter(|char| char.is_digit(10))
             .next()
-            .unwrap().to_digit(10)
+            .unwrap()
+            .to_digit(10)
             .unwrap();
         let last_digit = input
             .chars()
             .rev()
             .filter(|char| char.is_digit(10))
             .next()
-            .unwrap().to_digit(10)
+            .unwrap().
+            to_digit(10)
             .unwrap();
-        let s: i32 = format!("{}{}", first_digit, last_digit).parse().unwrap();
+        let s: u32 = first_digit * 10 + last_digit;
         sum = sum + s;
     }
     sum
@@ -28,9 +30,9 @@ fn part1(inputs: &Vec<String>) -> i32 {
 fn part2(inputs: &Vec<String>) -> i32 {
 
     fn is_digit_at_idx(input: &String, idx: usize) -> Option<i32>{
-        let char: Vec<char> = input.chars().skip(idx).take(1).collect();
-        if let Some(digit) = char.get(0).unwrap().to_digit(10){
-            return Some(digit as i32);
+        let char = &input[idx..idx+1];
+        if let Ok(digit) = char.parse::<i32>(){
+            return Some(digit);
         }
         return None
     }
@@ -47,7 +49,7 @@ fn part2(inputs: &Vec<String>) -> i32 {
         }
         for idx in iterator {
             // simple digit check
-            if let Some(x) = is_digit_at_idx(&input, idx){
+            if let Some(x) = is_digit_at_idx(input, idx){
                 digit = Some(x);
                 break
             }
@@ -56,16 +58,16 @@ fn part2(inputs: &Vec<String>) -> i32 {
                 if forward {
                     // check for every index in the line if the current digit string starts here
                     if number_s.len() + idx <= input.chars().count() {
-                        let substr: String = input.chars().skip(idx).take(number_s.len()).collect();
-                        if substr == number_s.to_string() {
+                        let substr = &input[idx..idx + number_s.len()];
+                        if substr == number_s {
                             digit = Some(*number_i);
                             break
                         }
                     }
                 } else {
                     if idx >= number_s.len() {
-                        let substr: String = input.chars().skip(idx - number_s.len() + 1).take(number_s.len()).collect();
-                        if substr == number_s.to_string() {
+                        let substr = &input[idx - number_s.len() + 1..idx - number_s.len() + 1 + number_s.len()];
+                        if substr == number_s {
                             digit = Some(*number_i);
                             break
                         }
@@ -97,9 +99,8 @@ fn part2(inputs: &Vec<String>) -> i32 {
         let last_digit = forward_or_backward(&input, &numbers, false);
 
 
-        let s: i32 = format!("{}{}",
-                             first_digit.expect("First digit is none"),
-                             last_digit.expect("Last digit is none")).parse().unwrap();
+        let s: i32 = first_digit.expect("First digit is none") * 10 +
+                     last_digit.expect("Last digit is none");
         sum = sum + s;
     }
     sum
