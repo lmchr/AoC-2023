@@ -12,7 +12,6 @@ fn read_input(day: &u8) -> Vec<String> {
         .lines()
         .map(|t| t.to_string())
         .collect();
-    println!("Collected {} items", lines.len());
     lines
 }
 
