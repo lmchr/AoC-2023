@@ -2,4 +2,4 @@
 
 Run with `cargo run [--release] -- <1..24>`
 
-Lint with `cargo clippy`
+See all other available commands with `just`

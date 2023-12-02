@@ -1,9 +1,9 @@
-pub fn main(inputs: Vec<String>) {
+pub fn main(inputs: &Vec<String>) {
     println!("Part 1: {}", part1(&inputs));
     println!("Part 2: {}", part2(&inputs));
 }
 
-fn part1(inputs: &[String]) -> u32 {
+pub fn part1(inputs: &[String]) -> u32 {
     let mut sum = 0;
     for input in inputs {
         let first_digit = input
@@ -27,7 +27,7 @@ fn part1(inputs: &[String]) -> u32 {
     sum
 }
 
-fn part2(inputs: &[String]) -> i32 {
+pub fn part2(inputs: &[String]) -> i32 {
 
     fn is_digit_at_idx(input: &str, idx: usize) -> Option<i32>{
         let char = &input[idx..idx+1];

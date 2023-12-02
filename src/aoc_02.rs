@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-pub fn main(inputs: Vec<String>) {
+pub fn main(inputs: &Vec<String>) {
     println!("Part 1: {}", part1(&inputs));
     println!("Part 2: {}", part2(&inputs));
 }
 
-fn part1(inputs: &[String]) -> usize {
+pub fn part1(inputs: &[String]) -> usize {
     let game_cubes = HashMap::from([
        ("red", 12),
        ("green", 13),
@@ -52,7 +52,7 @@ fn part1(inputs: &[String]) -> usize {
     playable_games_sum
 }
 
-fn part2(inputs: &[String]) -> i32 {
+pub fn part2(inputs: &[String]) -> i32 {
     let mut power_sum = 0;
     for input in inputs {
         let cleaned_input = input

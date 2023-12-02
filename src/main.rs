@@ -1,19 +1,23 @@
-use std::{env, fs};
-use std::path::Path;
+use std::env;
 use std::process::exit;
 use std::time::Instant;
+use aoc_2023::{
+    aoc_01,
+    aoc_02
+};
+use aoc_2023::util::{Days, read_input};
+use strum::IntoEnumIterator;
 
-pub mod aoc_01;
-pub mod aoc_02;
-
-fn read_input(day: &u8) -> Vec<String> {
-    let path = Path::new("data").join(format!("aoc_{:0>2}.txt", day.to_string()));
-    let lines: Vec<String> = fs::read_to_string(&path)
-        .unwrap_or_else(|err| panic!("Read file from {:?} failed due to {}", &path, err))
-        .lines()
-        .map(|t| t.to_string())
-        .collect();
-    lines
+fn execute_day(day: &Days) {
+    let input = read_input(&day);
+    println!("Executing day {} on {} elements", day.value(), input.len());
+    let start = Instant::now();
+    match day {
+        Days::ONE => aoc_01::main(&input),
+        Days::TWO => aoc_02::main(&input)
+    }
+    let duration = start.elapsed();
+    println!("Day {} finished in {:?}", day.value(), duration);
 }
 
 fn main() {
@@ -27,22 +31,17 @@ fn main() {
         .expect("Provide the day to run ([1..24])")
         .parse::<u8>()
         .expect("Pass the day as a positive integer");
-    let start;
-    match day {
-        invalid_day if invalid_day > 24 => {
-            panic!("There are only 24 days in an advent calendar")
-        },
-        valid_day if valid_day > 0 => {
-            let input = read_input(&day);
-            start = Instant::now();
-            match valid_day {
-                1 => aoc_01::main(input),
-                2 => aoc_02::main(input),
-                _ => panic!("Day {} not implemented yet", day)
-            }
-        },
-        _ => panic!("Invalid date"),
+    if day == 0 {
+        println!("Executing all days.");
+        let start = Instant::now();
+        for day in Days::iter() {
+            execute_day(&day)
+        }
+        let duration = start.elapsed();
+        println!("All days finished in {:?}", duration);
+    } else {
+        let day_enum = Days::by_value(&day);
+        execute_day(&day_enum)
     }
-    let duration = start.elapsed();
-    println!("Day {} finished in {:?}", day, duration);
+
 }
