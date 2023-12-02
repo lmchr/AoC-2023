@@ -3,12 +3,12 @@ pub fn main(inputs: Vec<String>) {
     println!("Part 2: {}", part2(&inputs));
 }
 
-fn part1(inputs: &Vec<String>) -> u32 {
+fn part1(inputs: &[String]) -> u32 {
     let mut sum = 0;
     for input in inputs {
         let first_digit = input
             .chars()
-            .filter(|char| char.is_digit(10))
+            .filter(|char| char.is_ascii_digit())
             .next()
             .unwrap()
             .to_digit(10)
@@ -16,37 +16,36 @@ fn part1(inputs: &Vec<String>) -> u32 {
         let last_digit = input
             .chars()
             .rev()
-            .filter(|char| char.is_digit(10))
+            .filter(|char| char.is_ascii_digit())
             .next()
             .unwrap().
             to_digit(10)
             .unwrap();
         let s: u32 = first_digit * 10 + last_digit;
-        sum = sum + s;
+        sum += s;
     }
     sum
 }
 
-fn part2(inputs: &Vec<String>) -> i32 {
+fn part2(inputs: &[String]) -> i32 {
 
-    fn is_digit_at_idx(input: &String, idx: usize) -> Option<i32>{
+    fn is_digit_at_idx(input: &str, idx: usize) -> Option<i32>{
         let char = &input[idx..idx+1];
         if let Ok(digit) = char.parse::<i32>(){
             return Some(digit);
         }
-        return None
+        None
     }
 
-    fn forward_or_backward(input: &String,
+    fn forward_or_backward(input: &str,
                            numbers: &Vec<(String, i32)>,
                            forward: bool) -> Option<i32> {
         let mut digit = None;
-        let iterator: Box<dyn Iterator<Item=usize>>;
-        if forward {
-            iterator = Box::new(0..input.len());
+        let iterator: Box<dyn Iterator<Item=usize>> = if forward {
+            Box::new(0..input.len())
         } else {
-            iterator = Box::new((0..input.len()).rev());
-        }
+            Box::new((0..input.len()).rev())
+        };
         for idx in iterator {
             // simple digit check
             if let Some(x) = is_digit_at_idx(input, idx){
@@ -64,13 +63,11 @@ fn part2(inputs: &Vec<String>) -> i32 {
                             break
                         }
                     }
-                } else {
-                    if idx >= number_s.len() {
-                        let substr = &input[idx - number_s.len() + 1..idx - number_s.len() + 1 + number_s.len()];
-                        if substr == number_s {
-                            digit = Some(*number_i);
-                            break
-                        }
+                } else if idx >= number_s.len() {
+                    let substr = &input[idx - number_s.len() + 1..idx - number_s.len() + 1 + number_s.len()];
+                    if substr == number_s {
+                        digit = Some(*number_i);
+                        break
                     }
                 }
             }
@@ -95,13 +92,13 @@ fn part2(inputs: &Vec<String>) -> i32 {
 
     let mut sum = 0;
     for input in inputs {
-        let first_digit = forward_or_backward(&input, &numbers, true);
-        let last_digit = forward_or_backward(&input, &numbers, false);
+        let first_digit = forward_or_backward(input, &numbers, true);
+        let last_digit = forward_or_backward(input, &numbers, false);
 
 
         let s: i32 = first_digit.expect("First digit is none") * 10 +
                      last_digit.expect("Last digit is none");
-        sum = sum + s;
+        sum += s;
     }
     sum
 }

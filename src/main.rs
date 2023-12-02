@@ -4,6 +4,7 @@ use std::process::exit;
 use std::time::Instant;
 
 pub mod aoc_01;
+pub mod aoc_02;
 
 fn read_input(day: &u8) -> Vec<String> {
     let path = Path::new("data").join(format!("aoc_{:0>2}.txt", day.to_string()));
@@ -36,6 +37,7 @@ fn main() {
             start = Instant::now();
             match valid_day {
                 1 => aoc_01::main(input),
+                2 => aoc_02::main(input),
                 _ => panic!("Day {} not implemented yet", day)
             }
         },
