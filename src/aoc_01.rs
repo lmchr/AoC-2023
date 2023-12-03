@@ -8,16 +8,14 @@ pub fn part1(inputs: &[String]) -> u32 {
     for input in inputs {
         let first_digit = input
             .chars()
-            .filter(|char| char.is_ascii_digit())
-            .next()
+            .find(|char| char.is_ascii_digit())
             .unwrap()
             .to_digit(10)
             .unwrap();
         let last_digit = input
             .chars()
             .rev()
-            .filter(|char| char.is_ascii_digit())
-            .next()
+            .find(|char| char.is_ascii_digit())
             .unwrap().
             to_digit(10)
             .unwrap();

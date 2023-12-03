@@ -28,6 +28,6 @@ mod tests {
 
         let inputs = util::read_input(&Days::THREE);
         assert_eq!(aoc_2023::aoc_03::part1(&inputs), 535235);
-        // assert_eq!(aoc_2023::aoc_03::part2(&inputs), 77021);
+        assert_eq!(aoc_2023::aoc_03::part2(&inputs), 79844424);
     }
 }
