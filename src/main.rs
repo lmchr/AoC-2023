@@ -3,18 +3,20 @@ use std::process::exit;
 use std::time::Instant;
 use aoc_2023::{
     aoc_01,
-    aoc_02
+    aoc_02,
+    aoc_03
 };
 use aoc_2023::util::{Days, read_input};
 use strum::IntoEnumIterator;
 
 fn execute_day(day: &Days) {
-    let input = read_input(&day);
+    let input = read_input(day);
     println!("Executing day {} on {} elements", day.value(), input.len());
     let start = Instant::now();
     match day {
         Days::ONE => aoc_01::main(&input),
-        Days::TWO => aoc_02::main(&input)
+        Days::TWO => aoc_02::main(&input),
+        Days::THREE => aoc_03::main(&input)
     }
     let duration = start.elapsed();
     println!("Day {} finished in {:?}", day.value(), duration);

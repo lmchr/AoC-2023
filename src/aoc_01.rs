@@ -1,6 +1,6 @@
-pub fn main(inputs: &Vec<String>) {
-    println!("Part 1: {}", part1(&inputs));
-    println!("Part 2: {}", part2(&inputs));
+pub fn main(inputs: &[String]) {
+    println!("Part 1: {}", part1(inputs));
+    println!("Part 2: {}", part2(inputs));
 }
 
 pub fn part1(inputs: &[String]) -> u32 {

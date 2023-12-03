@@ -6,7 +6,8 @@ use strum_macros::EnumIter;
 #[derive(EnumIter, Copy, Clone)]
 pub enum Days {
     ONE = 1,
-    TWO = 2
+    TWO = 2,
+    THREE = 3
 }
 
 impl Days {

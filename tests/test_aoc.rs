@@ -16,4 +16,18 @@ mod tests {
         assert_eq!(aoc_2023::aoc_02::part1(&inputs), 2285);
         assert_eq!(aoc_2023::aoc_02::part2(&inputs), 77021);
     }
+
+    #[test]
+    fn test_aoc_03() {
+        assert!(aoc_2023::aoc_03::is_symbol_except_dot(&'*'));
+        assert!(aoc_2023::aoc_03::is_symbol_except_dot(&'#'));
+        assert!(!aoc_2023::aoc_03::is_symbol_except_dot(&'.'));
+        assert!(!aoc_2023::aoc_03::is_symbol_except_dot(&'a'));
+        assert!(!aoc_2023::aoc_03::is_symbol_except_dot(&'Z'));
+        assert!(!aoc_2023::aoc_03::is_symbol_except_dot(&'4'));
+
+        let inputs = util::read_input(&Days::THREE);
+        assert_eq!(aoc_2023::aoc_03::part1(&inputs), 535235);
+        // assert_eq!(aoc_2023::aoc_03::part2(&inputs), 77021);
+    }
 }
