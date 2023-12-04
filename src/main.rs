@@ -4,7 +4,8 @@ use std::time::Instant;
 use aoc_2023::{
     aoc_01,
     aoc_02,
-    aoc_03
+    aoc_03,
+    aoc_04
 };
 use aoc_2023::util::{Days, read_input};
 use strum::IntoEnumIterator;
@@ -16,7 +17,8 @@ fn execute_day(day: &Days) {
     match day {
         Days::ONE => aoc_01::main(&input),
         Days::TWO => aoc_02::main(&input),
-        Days::THREE => aoc_03::main(&input)
+        Days::THREE => aoc_03::main(&input),
+        Days::FOUR => aoc_04::main(&input)
     }
     let duration = start.elapsed();
     println!("Day {} finished in {:?}", day.value(), duration);

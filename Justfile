@@ -3,6 +3,7 @@ default:
 
 run day:
   cargo run --release {{day}}
+alias day := run
 
 run-all:
     cargo run --release 0

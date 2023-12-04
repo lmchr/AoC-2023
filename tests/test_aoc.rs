@@ -30,4 +30,12 @@ mod tests {
         assert_eq!(aoc_2023::aoc_03::part1(&inputs), 535235);
         assert_eq!(aoc_2023::aoc_03::part2(&inputs), 79844424);
     }
+
+    #[test]
+    fn test_aoc_04() {
+        let inputs = util::read_input(&Days::FOUR);
+        assert_eq!(aoc_2023::aoc_04::part1(&inputs), 25183);
+        assert_eq!(aoc_2023::aoc_04::part2(&inputs), 5667240);
+    }
+
 }
