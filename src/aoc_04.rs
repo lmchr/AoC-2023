@@ -5,7 +5,7 @@ pub fn main(inputs: &[String]) {
     println!("Part 2: {}", part2(inputs));
 }
 fn str_to_digits(s: &str) -> Vec<u32> {
-    s.split(" ")
+    s.split(' ')
         .filter(|s| !s.is_empty())
         .map(|s| s.parse::<u32>().unwrap())
         .collect()
@@ -20,7 +20,7 @@ fn get_winning_and_our_numbers(input: &str) -> (Vec<u32>, Vec<u32>) {
     let y: Vec<&str> = x
         .last()
         .unwrap()
-        .strip_prefix(" ")
+        .strip_prefix(' ')
         .unwrap()
         .split(" | ")
         .collect();
@@ -43,7 +43,7 @@ pub fn part1(inputs: &[String]) -> u32 {
     sum
 }
 
-fn get_overlapping_numbers(winning_numbers: &Vec<u32>, our_numbers: &Vec<u32>) -> usize {
+fn get_overlapping_numbers(winning_numbers: &[u32], our_numbers: &[u32]) -> usize {
     our_numbers
         .iter()
         .filter(|i| winning_numbers.contains(i))

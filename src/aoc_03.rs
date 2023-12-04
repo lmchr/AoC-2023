@@ -59,6 +59,13 @@ fn has_adjacent_symbols(inputs: &[String],
     None
 }
 
+fn char_is_digit(c: Option<&u8>) -> bool {
+    if let Some(char_val) = c {
+        return (*char_val as char).is_ascii_digit()
+    }
+    false
+}
+
 pub fn part1(inputs: &[String]) -> u32 {
     let mut sum = 0;
     for (row_idx, input) in inputs.iter().enumerate() {
@@ -67,12 +74,12 @@ pub fn part1(inputs: &[String]) -> u32 {
         // here the .nth() lookup will not work and trigger the neighbour check
         for col_idx in 0..input.len() + 1 {
             let char = input.as_bytes().get(col_idx);
-            if char.is_some() && (*char.unwrap() as char).is_ascii_digit() {
+            if char_is_digit(char) {
                 collector.push((*char.unwrap() as char).to_digit(10).unwrap());
             } else if !collector.is_empty() {  // check if we collected a number and a non-numeric character followed
                 if has_adjacent_symbols(inputs, row_idx, col_idx, collector.len(), &is_symbol_except_dot).is_some() {
                     // vec of single digit numbers to "whole" number, use 10^idx
-                    for (idx, digit) in collector.iter().enumerate(){
+                    for (idx, digit) in collector.iter().enumerate() {
                         sum += digit * 10_u32.pow((collector.len() - idx - 1) as u32);
                     }
                 }
@@ -96,7 +103,7 @@ pub fn part2(inputs: &[String]) -> u32 {
         // here the .nth() lookup will not work and trigger the neighbour check
         for col_idx in 0..input.len() + 1 {
             let char = input.as_bytes().get(col_idx);
-            if char.is_some() && (*char.unwrap() as char).is_ascii_digit() {
+            if char_is_digit(char) {
                 collector.push((*char.unwrap() as char).to_digit(10).unwrap());
             } else if !collector.is_empty() {  // check if we collected a number and a non-numeric character followed
                 if let Some(indices) = has_adjacent_symbols(inputs,

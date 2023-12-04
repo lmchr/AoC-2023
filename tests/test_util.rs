@@ -8,7 +8,7 @@ mod tests {
         let days = util::Days::iter();
         for day in days {
             let out = util::read_input(&day);
-            assert!(out.len() > 0)
+            assert!(!out.is_empty())
         }
     }
 }

@@ -36,7 +36,7 @@ pub fn part2(inputs: &[String]) -> i32 {
     }
 
     fn forward_or_backward(input: &str,
-                           numbers: &Vec<(String, i32)>,
+                           numbers: &[(String, i32)],
                            forward: bool) -> Option<i32> {
         let mut digit = None;
         let iterator: Box<dyn Iterator<Item=usize>> = if forward {
