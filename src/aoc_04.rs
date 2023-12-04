@@ -1,9 +1,8 @@
-use std::collections::HashMap;
-
 pub fn main(inputs: &[String]) {
     println!("Part 1: {}", part1(inputs));
     println!("Part 2: {}", part2(inputs));
 }
+
 fn str_to_digits(s: &str) -> Vec<u32> {
     s.split(' ')
         .filter(|s| !s.is_empty())
@@ -51,24 +50,17 @@ fn get_overlapping_numbers(winning_numbers: &[u32], our_numbers: &[u32]) -> usiz
 }
 
 pub fn part2(inputs: &[String]) -> u32 {
-    // card_id : amount
-    let mut card_amounts: HashMap<usize, u32> = HashMap::new();
+    let mut card_amounts: Vec<u32> = vec![1; inputs.len()];
 
     for (idx, input) in inputs.iter().enumerate() {
-        // add 1 to count for the initial card. there might be values added already
-        let current_card_amount = card_amounts.entry(idx + 1).or_insert(0);
-        *current_card_amount += 1;
-
-        // dereference, otherwise the borrowchecker will complain in the loop
-        // that a mutable borrow is used again
-        let current_card_amount_ref = *current_card_amount;
         let (winning_numbers, our_numbers) = get_winning_and_our_numbers(input);
         let overlapping_numbers = get_overlapping_numbers(&winning_numbers, &our_numbers);
-        for card_id in idx + 2 .. idx + 2 + overlapping_numbers {
-            *card_amounts.entry(card_id).or_default() += current_card_amount_ref
+        let x = *card_amounts.get(idx).unwrap();
+        for card_id in idx + 1 .. idx + 1 + overlapping_numbers {
+            *card_amounts.get_mut(card_id).unwrap() += x;
         }
     }
     card_amounts
-        .values()
+        .iter()
         .sum()
 }
