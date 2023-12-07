@@ -24,7 +24,6 @@ fn part1(inputs: &[String]) -> i64 {
         .collect();
     let mut num_ways_to_win = vec![];
     for (a, b) in times.iter().zip(&distances){
-        println!("{}.{}", a, b);
         let mut race_ways_to_win = 0;
         for hold_time_ms in 0..*a {
             let travel_time = a - hold_time_ms;
@@ -38,7 +37,7 @@ fn part1(inputs: &[String]) -> i64 {
     num_ways_to_win.iter().product()
 }
 
-pub fn part2(inputs: &[String]) -> i32 {
+pub fn part2(inputs: &[String]) -> i64 {
     let time = &inputs
         .get(0)
         .unwrap()
@@ -48,7 +47,7 @@ pub fn part2(inputs: &[String]) -> i32 {
         .filter(|s| !s.is_empty())
         .collect::<Vec<_>>()
         .join("")
-        .parse::<i32>()
+        .parse::<i64>()
         .unwrap();
     let distance = &inputs
         .get(1)
@@ -59,12 +58,12 @@ pub fn part2(inputs: &[String]) -> i32 {
         .filter(|s| !s.is_empty())
         .collect::<Vec<_>>()
         .join("")
-        .parse::<i32>()
+        .parse::<i64>()
         .unwrap();
-    let mut race_ways_to_win: i32 = 0;
+    let mut race_ways_to_win: i64 = 0;
     for hold_time_ms in 0..*time {
-        let travel_time = distance - hold_time_ms;
-        let distance_race = travel_time * hold_time_ms;
+        let travel_time = time - hold_time_ms;
+        let distance_race: i64 = travel_time * hold_time_ms;
         if distance_race > *distance {
             race_ways_to_win += 1;
         }
