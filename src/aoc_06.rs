@@ -3,7 +3,7 @@ pub fn main(inputs: &[String]) {
     println!("Part 2: {}", part2(inputs));
 }
 
-fn part1(inputs: &[String]) -> i64 {
+pub fn part1(inputs: &[String]) -> i64 {
     let times: Vec<i32> = inputs
         .get(0)
         .unwrap()
