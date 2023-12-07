@@ -6,7 +6,8 @@ use aoc_2023::{
     aoc_02,
     aoc_03,
     aoc_04,
-    aoc_05
+    aoc_05,
+    aoc_06
 };
 use aoc_2023::util::{Days, read_input};
 use strum::IntoEnumIterator;
@@ -20,7 +21,8 @@ fn execute_day(day: &Days) {
         Days::TWO => aoc_02::main(&input),
         Days::THREE => aoc_03::main(&input),
         Days::FOUR => aoc_04::main(&input),
-        Days::FIVE => aoc_05::main(&input)
+        Days::FIVE => aoc_05::main(&input),
+        Days::SIX => aoc_06::main(&input)
     }
     let duration = start.elapsed();
     println!("Day {} finished in {:?}", day.value(), duration);
