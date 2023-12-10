@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 pub fn main(inputs: &[String]) {
-    //println!("Part 1: {}", part1(inputs));
+    println!("Part 1: {}", part1(inputs));
     println!("Part 2: {}", part2(inputs));
 }
 
@@ -23,38 +23,47 @@ pub fn part1(inputs: &[String]) -> i64 {
     counter
 }
 
-pub fn part2(inputs: &[String]) -> i64 {
+pub fn lcm(nums: &[u128]) -> u128 {
+    if nums.len() == 1 {
+        return nums[0];
+    }
+    let a = nums[0];
+    let b = lcm(&nums[1..]);
+    a * b / gcd_of_two_numbers(a, b)
+}
+
+fn gcd_of_two_numbers(a: u128, b: u128) -> u128 {
+    if b == 0 {
+        return a;
+    }
+    gcd_of_two_numbers(b, a % b)
+}
+
+pub fn part2(inputs: &[String]) -> u128 {
     let (instructions, navigation_map) = prepare_input(inputs);
     // get nodes starting ending with "A"
     let mut current_nodes = navigation_map
         .keys()
         .filter(|node| node.ends_with('A'))
         .collect::<Vec<_>>();
-    println!("{:?}", &current_nodes);
-    let mut counter = 0;
-
-    for instruction in instructions.iter().cycle() {
-        counter += 1;
-        if counter % 100_000 == 0 {
-            println!("{counter}");
-        }
-        let left_or_right = if instruction == &'L' { 0 } else { 1 };
-        // update all positions at once
-        for node in current_nodes.iter_mut() {
-            let new = (*navigation_map.get(*node).unwrap())
+    let mut cycle_lengths: Vec<u128> = vec![];
+     for node in current_nodes.iter_mut() {
+        let mut curr_node = *node;
+        for (instruction_idx, instruction) in instructions.iter().cycle().enumerate() {
+            let left_or_right = if instruction == &'L' { 0 } else { 1 };
+            // update all positions at once
+            let new = (*navigation_map.get(*curr_node).unwrap())
                 .get(left_or_right)
                 .unwrap();
-            *node = new;
-        }
-        // all end with Z?
-        let done = current_nodes
-            .iter()
-            .all(|node| node.ends_with('Z'));
-        if done {
-            break
+            curr_node = new;
+            if curr_node.ends_with("Z") {
+                cycle_lengths.push((instruction_idx + 1) as u128);
+                break
+            }
         }
     }
-    counter
+    println!("{:?}",cycle_lengths);
+    lcm(&cycle_lengths)
 }
 
 fn prepare_input(inputs: &[String]) -> (Vec<char>, HashMap<&str, Vec<&str>>) {

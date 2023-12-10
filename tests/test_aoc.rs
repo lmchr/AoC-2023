@@ -62,7 +62,7 @@ mod tests {
     fn test_aoc_08() {
         let inputs = util::read_input(&Days::EIGHT);
         assert_eq!(aoc_2023::aoc_08::part1(&inputs), 19783);
-        assert_eq!(aoc_2023::aoc_08::part2(&inputs), 0);
+        assert_eq!(aoc_2023::aoc_08::part2(&inputs), 9177460370549);
     }
 
 }
