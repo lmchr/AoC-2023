@@ -14,7 +14,7 @@ struct Hand {
 }
 
 impl Hand {
-    fn get_card_value_at_pos(&self, ranks: &Vec<char>, pos: usize) -> usize {
+    fn get_card_value_at_pos(&self, ranks: &[char], pos: usize) -> usize {
         let x =  self.cards.get(pos).unwrap();
         ranks
             .iter()
@@ -24,13 +24,13 @@ impl Hand {
 }
 
 
-fn get_best_joker_hand_type(cards: &Vec<char>, ranks: &Vec<char>) -> Type {
+fn get_best_joker_hand_type(cards: &[char], ranks: &[char]) -> Type {
     // get all possible permutations
-    let a = if cards[0] == 'J' {&ranks} else {&cards[0..1]};
-    let b = if cards[1] == 'J' {&ranks} else {&cards[1..2]};
-    let c = if cards[2] == 'J' {&ranks} else {&cards[2..3]};
-    let d = if cards[3] == 'J' {&ranks} else {&cards[3..4]};
-    let e = if cards[4] == 'J' {&ranks} else {&cards[4..5]};
+    let a = if cards[0] == 'J' {ranks} else {&cards[0..1]};
+    let b = if cards[1] == 'J' {ranks} else {&cards[1..2]};
+    let c = if cards[2] == 'J' {ranks} else {&cards[2..3]};
+    let d = if cards[3] == 'J' {ranks} else {&cards[3..4]};
+    let e = if cards[4] == 'J' {ranks} else {&cards[4..5]};
     let mut best = Type::HighCard;
     for aa in a{
         for bb in b{
@@ -50,7 +50,7 @@ fn get_best_joker_hand_type(cards: &Vec<char>, ranks: &Vec<char>) -> Type {
     best
 }
 
-fn get_hand_type(cards: &Vec<char>) -> Type {
+fn get_hand_type(cards: &[char]) -> Type {
     let unique_elements = cards
         .iter()
         .collect::<HashSet<&char>>()
@@ -120,8 +120,8 @@ pub fn part2(inputs: &[String]) -> i64 {
     get_end_result(sorted)
 }
 
-fn get_hand_type_p1_p2(cards: &Vec<char>, ranks: &Vec<char>, is_p1: bool) -> u8 {
-    return if is_p1 {
+fn get_hand_type_p1_p2(cards: &[char], ranks: &[char], is_p1: bool) -> u8 {
+    if is_p1 {
         get_hand_type(cards).value()
     } else {
         get_best_joker_hand_type(cards, ranks).value()
@@ -136,16 +136,16 @@ fn get_end_result(sorted: Vec<&Hand>) -> i64 {
         .sum()
 }
 
-fn sort_hand<'a>(ranks_j: &'a Vec<char>, ranks: &'a Vec<char>, hands: &'a Vec<Hand>, is_p1: bool) -> Vec<&'a Hand> {
+fn sort_hand<'a>(ranks_j: &'a [char], ranks: &'a [char], hands: &'a [Hand], is_p1: bool) -> Vec<&'a Hand> {
     hands
         .iter()
         .sorted_by_key(|hand| (
-            get_hand_type_p1_p2(&hand.cards, &ranks, is_p1),
-            hand.get_card_value_at_pos(&ranks_j, 0),
-            hand.get_card_value_at_pos(&ranks_j, 1),
-            hand.get_card_value_at_pos(&ranks_j, 2),
-            hand.get_card_value_at_pos(&ranks_j, 3),
-            hand.get_card_value_at_pos(&ranks_j, 4)
+            get_hand_type_p1_p2(&hand.cards, ranks, is_p1),
+            hand.get_card_value_at_pos(ranks_j, 0),
+            hand.get_card_value_at_pos(ranks_j, 1),
+            hand.get_card_value_at_pos(ranks_j, 2),
+            hand.get_card_value_at_pos(ranks_j, 3),
+            hand.get_card_value_at_pos(ranks_j, 4)
         ))
         .rev()
         .collect()
@@ -154,7 +154,7 @@ fn sort_hand<'a>(ranks_j: &'a Vec<char>, ranks: &'a Vec<char>, hands: &'a Vec<Ha
 fn get_hands(inputs: &[String]) -> Vec<Hand> {
     let hands: Vec<Hand> = inputs
         .iter()
-        .map(|line| line.split(" ").collect::<Vec<&str>>())
+        .map(|line| line.split(' ').collect::<Vec<&str>>())
         .map(|list| Hand {
             cards: list.first().unwrap().chars().collect::<Vec<char>>(),
             bid: list.last().unwrap().parse::<i32>().unwrap()

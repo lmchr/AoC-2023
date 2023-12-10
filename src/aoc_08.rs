@@ -56,7 +56,7 @@ pub fn part2(inputs: &[String]) -> u128 {
                 .get(left_or_right)
                 .unwrap();
             curr_node = new;
-            if curr_node.ends_with("Z") {
+            if curr_node.ends_with('Z') {
                 cycle_lengths.push((instruction_idx + 1) as u128);
                 break
             }

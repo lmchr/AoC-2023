@@ -3,6 +3,8 @@ use core::ops::Range;
 use std::cmp;
 use rayon::prelude::*;
 
+type MainCollectType = HashMap<(String, String), Vec<(Range<i64>, Range<i64>)>>;
+
 pub fn main(inputs: &[String]) {
     println!("Part 1: {}", part1(inputs));
     println!("Part 2: {}", part2(inputs));
@@ -23,7 +25,7 @@ fn part_1(inputs: &[String], is_p2: bool) -> i64 {
         }
     }
     collect.push(collect_tmp.clone());
-    let mut main_collect: HashMap<(String, String), Vec<(Range<i64>, Range<i64>)>> = HashMap::new();
+    let mut main_collect: MainCollectType = HashMap::new();
     for yy in &collect {
         let mut x_to_y_map: Vec<(Range<i64>, Range<i64>)> = Vec::new();
         let mut from_to_tuple: Option<(String, String)> = None;
@@ -87,9 +89,9 @@ fn part_1(inputs: &[String], is_p2: bool) -> i64 {
     min
 }
 
-fn get_location_by_seed(main_collect: &HashMap<(String, String), Vec<(Range<i64>, Range<i64>)>>, seed: &i64) -> i64 {
+fn get_location_by_seed(main_collect: &MainCollectType, seed: &i64) -> i64 {
 
-    fn get_next_value(main_collect: &HashMap<(String, String), Vec<(Range<i64>, Range<i64>)>>,
+    fn get_next_value(main_collect: &MainCollectType,
                       from: &str, to: &str,
                       val: &i64) -> i64 {
         let y = main_collect.get(&(from.to_string(), to.to_string())).unwrap();
@@ -101,18 +103,18 @@ fn get_location_by_seed(main_collect: &HashMap<(String, String), Vec<(Range<i64>
         *val  // Any source numbers that aren't mapped correspond to the same destination number.
     }
 
-    let soil: i64 = get_next_value(&main_collect, "seed", "soil", &seed);
-    let fertilizer: i64 = get_next_value(&main_collect, "soil", "fertilizer", &soil);
-    let water: i64 = get_next_value(&main_collect, "fertilizer", "water", &fertilizer);
-    let light: i64 = get_next_value(&main_collect, "water", "light", &water);
-    let temperature: i64 = get_next_value(&main_collect, "light", "temperature", &light);
-    let humidity: i64 = get_next_value(&main_collect, "temperature", "humidity", &temperature);
-    let location: i64 = get_next_value(&main_collect, "humidity", "location", &humidity);
+    let soil: i64 = get_next_value(main_collect, "seed", "soil", seed);
+    let fertilizer: i64 = get_next_value(main_collect, "soil", "fertilizer", &soil);
+    let water: i64 = get_next_value(main_collect, "fertilizer", "water", &fertilizer);
+    let light: i64 = get_next_value(main_collect, "water", "light", &water);
+    let temperature: i64 = get_next_value(main_collect, "light", "temperature", &light);
+    let humidity: i64 = get_next_value(main_collect, "temperature", "humidity", &temperature);
+    let location: i64 = get_next_value(main_collect, "humidity", "location", &humidity);
     location
 }
 
 pub fn part1(inputs: &[String]) -> i64 {
-    part_1(&inputs, false)
+    part_1(inputs, false)
 }
 
 pub fn part2(inputs: &[String]) -> i64 {
