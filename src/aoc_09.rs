@@ -1,5 +1,5 @@
 pub fn main(inputs: &[String]) {
-    //println!("Part 1: {}", part1(inputs));
+    println!("Part 1: {}", part1(inputs));
     println!("Part 2: {}", part2(inputs));
 }
 

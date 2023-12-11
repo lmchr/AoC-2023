@@ -11,7 +11,6 @@ pub fn part1(inputs: &[String]) -> i64 {
     let mut counter = 0;
     for instruction in instructions.iter().cycle() {
         let left_or_right = if instruction == &'L' { 0 } else { 1 };
-        println!("{:?} {}", navigation_map, current_pos);
         current_pos = (*navigation_map.get(current_pos).unwrap())
             .get(left_or_right)
             .unwrap();

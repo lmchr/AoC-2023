@@ -1,7 +1,7 @@
 use std::env;
 use std::process::exit;
 use std::time::Instant;
-use aoc_2023::{aoc_01, aoc_02, aoc_03, aoc_04, aoc_05, aoc_06, aoc_07, aoc_08, aoc_09};
+use aoc_2023::{aoc_01, aoc_02, aoc_03, aoc_04, aoc_05, aoc_06, aoc_07, aoc_08, aoc_09, aoc_10};
 use aoc_2023::util::{Days, read_input};
 use strum::IntoEnumIterator;
 
@@ -19,6 +19,7 @@ fn execute_day(day: &Days) {
         Days::SEVEN => aoc_07::main(&input),
         Days::EIGHT => aoc_08::main(&input),
         Days::NINE => aoc_09::main(&input),
+        Days::TEN => aoc_10::main(&input),
     }
     let duration = start.elapsed();
     println!("Day {} finished in {:?}", day.value(), duration);
