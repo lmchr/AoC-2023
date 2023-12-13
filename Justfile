@@ -5,6 +5,9 @@ run day:
   cargo run --release {{day}}
 alias day := run
 
+run-day10:
+    RUST_MIN_STACK=104857600 cargo run --release 10
+
 run-all:
     cargo run --release 0
 
