@@ -78,11 +78,19 @@ mod tests {
         assert_eq!(aoc_2023::aoc_10::part1(&inputs), 6854);
         assert_eq!(aoc_2023::aoc_10::part2(&inputs), 0);
     }
+
     #[test]
     fn test_aoc_11() {
         let inputs = util::read_input(&Days::ELEVEN);
         assert_eq!(aoc_2023::aoc_11::part1(&inputs), 9769724);
         assert_eq!(aoc_2023::aoc_11::part2(&inputs), 603020563700);
+    }
+
+    #[test]
+    fn test_aoc_15() {
+        let inputs = util::read_input(&Days::FIFTEEN);
+        assert_eq!(aoc_2023::aoc_15::part1(&inputs), 503154);
+        assert_eq!(aoc_2023::aoc_15::part2(&inputs), 251353);
     }
 
 }

@@ -25,7 +25,7 @@ fn get_recursive_diff_last_values(values: Vec<i32>) -> Vec<Vec<i32>> {
             .windows(2)
             .map(|w| *w.get(1).unwrap() - w.get(0).unwrap())
             .collect::<Vec<_>>();
-        println!("diffs: {diffs_of_diffs:?}");
+        // println!("diffs: {diffs_of_diffs:?}");
         if diffs_of_diffs.is_empty() || diffs_of_diffs.iter().all(|ele| *ele == 0) {
             break
         }
@@ -50,8 +50,8 @@ pub fn part1(inputs: &[String]) -> i32 {
             .map(|vec| vec.last().unwrap())
             .sum();
         let next_val = current_row.last().unwrap() + next_val_diff;
-        println!("current_row={current_row:?}");
-        println!("next_val={next_val_diff:?} --> {next_val:?}");
+        // println!("current_row={current_row:?}");
+        // println!("next_val={next_val_diff:?} --> {next_val:?}");
         extrapolated_values_sum += next_val;
     }
     extrapolated_values_sum
