@@ -15,6 +15,7 @@ pub enum Days {
     EIGHT = 8,
     NINE = 9,
     TEN = 10,
+    ELEVEN = 11,
 }
 
 impl Days {
