@@ -16,6 +16,7 @@ pub enum Days {
     NINE = 9,
     TEN = 10,
     ELEVEN = 11,
+    THIRTEEN = 13,
     FIFTEEN = 15,
 }
 
