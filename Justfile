@@ -22,4 +22,4 @@ lint:
   cargo clippy
 
 tests:
-  cargo test --color=always
+  RUST_MIN_STACK=104857600 cargo test --color=always
