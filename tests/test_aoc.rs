@@ -94,6 +94,13 @@ mod tests {
     }
 
     #[test]
+    fn test_aoc_14() {
+        let inputs = util::read_input(&Days::FOURTEEN);
+        assert_eq!(aoc_2023::aoc_14::part1(&inputs), 108935);
+        assert_eq!(aoc_2023::aoc_14::part2(&inputs), 0);
+    }
+
+    #[test]
     fn test_aoc_15() {
         let inputs = util::read_input(&Days::FIFTEEN);
         assert_eq!(aoc_2023::aoc_15::part1(&inputs), 503154);
