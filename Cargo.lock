@@ -107,6 +107,7 @@ dependencies = [
  "itertools",
  "rand",
  "rayon",
+ "rustc-hash",
  "strum",
  "strum_macros",
 ]
