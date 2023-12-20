@@ -15,7 +15,7 @@ fn parse_input(inputs: &[String]) -> Vec<Vec<char>> {
 
 pub fn part1(inputs: &[String]) -> usize {
     let mut map = parse_input(inputs);
-    let col_len = map.get(0).unwrap().len();
+    let col_len = map.first().unwrap().len();
     // iterate per col
     move_north_og(&mut map, col_len);
     map.iter().for_each(|e| println!("{:?}", e));
